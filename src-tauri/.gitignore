@@ -1,0 +1,22 @@
+# Node
+node_modules/
+
+# Rust / Tauri
+target/
+**/target/
+
+# Frontend build output
+dist/
+
+# IDE
+.vscode/
+.idea/
+
+# Database
+*.db
+*.db-shm
+*.db-wal
+
+# OS
+.DS_Store
+Thumbs.db
