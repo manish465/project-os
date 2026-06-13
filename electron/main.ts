@@ -1,6 +1,8 @@
 import { app, BrowserWindow } from "electron";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import { ipcMain } from "electron";
+import { createProject, getProjects } from "./db/project.repository";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -70,5 +72,14 @@ app.on("activate", () => {
 
 app.whenReady().then(async () => {
     console.log("Database initialized");
+
+    ipcMain.handle("project:create", async (_, name: string) => {
+        const id = crypto.randomUUID();
+        await createProject(id, name);
+        return { success: true };
+    });
+    ipcMain.handle("project:list", async () => {
+        return getProjects();
+    });
     createWindow();
 });
