@@ -1,7 +1,7 @@
 use rusqlite::{Connection, Result};
 
 pub fn init_db() -> Result<()> {
-    let conn = Connection::open("project-os.db")?;
+    let conn = Connection::open("../project-os.db")?;
 
     conn.execute(
         "

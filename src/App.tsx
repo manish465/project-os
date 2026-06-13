@@ -1,20 +1,19 @@
+import { useEffect } from "react";
 import "./App.css";
-import { createProject } from "./features/projects/api/projectApi";
+import { projectRepository } from "./db/repositories/projectRepository";
 
 function App() {
-    async function testInsert() {
-        await createProject({
-            name: "Project OS",
-            description: "Testing",
-            currentState: "Database setup",
-            nextAction: "CRUD",
-            blockers: "",
-        });
+    useEffect(() => {
+        async function load() {
+            const projects = await projectRepository.findAll();
 
-        alert("Saved");
-    }
+            console.log(projects);
+        }
 
-    return <button onClick={testInsert}>Insert Project</button>;
+        load();
+    }, []);
+
+    return <h1>Project OS</h1>;
 }
 
 export default App;
