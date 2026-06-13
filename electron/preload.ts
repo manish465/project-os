@@ -26,6 +26,11 @@ contextBridge.exposeInMainWorld("ipcRenderer", {
 });
 
 contextBridge.exposeInMainWorld("projectApi", {
-    createProject: (name: string) => ipcRenderer.invoke("project:create", name),
+    createProject: (name: string, problem: string, goal: string) =>
+        ipcRenderer.invoke("project:create", {
+            name,
+            problem,
+            goal,
+        }),
     getProjects: () => ipcRenderer.invoke("project:list"),
 });

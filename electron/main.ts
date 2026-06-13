@@ -73,11 +73,26 @@ app.on("activate", () => {
 app.whenReady().then(async () => {
     console.log("Database initialized");
 
-    ipcMain.handle("project:create", async (_, name: string) => {
-        const id = crypto.randomUUID();
-        await createProject(id, name);
-        return { success: true };
-    });
+    ipcMain.handle(
+        "project:create",
+        async (
+            _,
+            payload: {
+                name: string;
+                problem: string;
+                goal: string;
+            },
+        ) => {
+            const id = crypto.randomUUID();
+            await createProject(
+                id,
+                payload.name,
+                payload.problem,
+                payload.goal,
+            );
+            return { success: true };
+        },
+    );
     ipcMain.handle("project:list", async () => {
         return getProjects();
     });

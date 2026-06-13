@@ -6,10 +6,27 @@ interface Props {
 
 export function ProjectList({ projects }: Props) {
     return (
-        <ul>
+        <div>
             {projects.map((project) => (
-                <li key={project.id}>{project.name}</li>
+                <div
+                    key={project.id}
+                    style={{
+                        border: "1px solid #ddd",
+                        padding: "1rem",
+                        marginBottom: "1rem",
+                    }}
+                >
+                    <h3>{project.name}</h3>
+
+                    <p>
+                        <strong>Problem:</strong> {project.problem}
+                    </p>
+
+                    <p>
+                        <strong>Goal:</strong> {project.goal}
+                    </p>
+                </div>
             ))}
-        </ul>
+        </div>
     );
 }
