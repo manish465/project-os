@@ -2,29 +2,29 @@ import { Project } from "../types/project";
 
 interface Props {
     projects: Project[];
+    selectedProjectId: string | null;
+    onSelect: (project: Project) => void;
 }
 
-export function ProjectList({ projects }: Props) {
+export function ProjectList({ projects, selectedProjectId, onSelect }: Props) {
     return (
         <div>
             {projects.map((project) => (
                 <div
                     key={project.id}
+                    onClick={() => onSelect(project)}
                     style={{
-                        border: "1px solid #ddd",
+                        border:
+                            project.id === selectedProjectId
+                                ? "2px solid black"
+                                : "1px solid #ddd",
+
                         padding: "1rem",
-                        marginBottom: "1rem",
+                        marginBottom: "0.5rem",
+                        cursor: "pointer",
                     }}
                 >
-                    <h3>{project.name}</h3>
-
-                    <p>
-                        <strong>Problem:</strong> {project.problem}
-                    </p>
-
-                    <p>
-                        <strong>Goal:</strong> {project.goal}
-                    </p>
+                    <strong>{project.name}</strong>
                 </div>
             ))}
         </div>
