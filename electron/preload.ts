@@ -33,4 +33,11 @@ contextBridge.exposeInMainWorld("projectApi", {
             goal,
         }),
     getProjects: () => ipcRenderer.invoke("project:list"),
+    createTopic: (projectId: string, topicName: string) =>
+        ipcRenderer.invoke("research:create-topic", {
+            projectId,
+            topicName,
+        }),
+    getTopics: (projectId: string) =>
+        ipcRenderer.invoke("research:list-topics", projectId),
 });

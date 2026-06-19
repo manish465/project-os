@@ -1,4 +1,5 @@
 import { Project } from "../types/project";
+import { ResearchTopics } from "./ResearchTopics";
 
 interface Props {
     project: Project | null;
@@ -25,6 +26,7 @@ export function ProjectDetails({ project }: Props) {
                 <h3>Goal</h3>
                 <p>{project.goal}</p>
             </div>
+            <ResearchTopics project={project} />
         </div>
     );
 }

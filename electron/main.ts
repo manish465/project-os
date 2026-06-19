@@ -3,6 +3,7 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { ipcMain } from "electron";
 import { createProject, getProjects } from "./db/project.repository";
+import { createTopic, getTopicsByProject } from "./db/research.repository";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -95,6 +96,26 @@ app.whenReady().then(async () => {
     );
     ipcMain.handle("project:list", async () => {
         return getProjects();
+    });
+    ipcMain.handle(
+        "research:create-topic",
+        async (
+            _,
+            payload: {
+                projectId: string;
+                topicName: string;
+            },
+        ) => {
+            await createTopic(payload.projectId, payload.topicName);
+
+            return {
+                success: true,
+            };
+        },
+    );
+
+    ipcMain.handle("research:list-topics", async (_, projectId: string) => {
+        return getTopicsByProject(projectId);
     });
     createWindow();
 });
