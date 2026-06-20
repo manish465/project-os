@@ -12,7 +12,6 @@ import java.util.UUID;
 @MappedSuperclass
 public abstract class BaseEntity {
     @Id
-    @GeneratedValue
     private UUID id;
 
     @Column(nullable = false, updatable = false)
@@ -23,6 +22,10 @@ public abstract class BaseEntity {
 
     @PrePersist
     void onCreate() {
+        if (id == null) {
+            id = UUID.randomUUID();
+        }
+
         createdAt = Instant.now();
         updatedAt = Instant.now();
     }
