@@ -1,0 +1,19 @@
+version: "3.9"
+name: "project-os"
+
+services:
+    postgres:
+        container_name: "project-os-storage"
+        image: postgres:16-alpine
+        environment:
+            POSTGRES_USER: user
+            POSTGRES_PASSWORD: 1234
+            POSTGRES_DB: storage
+        ports:
+            - "5432:5432"
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        restart: always
+
+volumes:
+    postgres_data:
