@@ -6,11 +6,12 @@ import {
     Typography,
 } from "@mui/material";
 import Grid from "@mui/material/Grid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useProjects } from "../hooks/useProjects";
 
 export default function ProjectListPage() {
     const { data, isLoading, error } = useProjects();
+    const navigate = useNavigate();
 
     if (isLoading) {
         return <Typography>Loading...</Typography>;
@@ -42,7 +43,10 @@ export default function ProjectListPage() {
             <Grid container spacing={2}>
                 {data?.map((project: any) => (
                     <Grid size={{ xs: 12, md: 6 }} key={project.id}>
-                        <Card>
+                        <Card
+                            sx={{ cursor: "pointer" }}
+                            onClick={() => navigate(`/projects/${project.id}`)}
+                        >
                             <CardContent>
                                 <Typography variant="h6">
                                     {project.name}
