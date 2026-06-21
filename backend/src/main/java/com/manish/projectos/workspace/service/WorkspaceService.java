@@ -1,5 +1,6 @@
 package com.manish.projectos.workspace.service;
 
+import com.manish.projectos.decision.repository.DecisionRepository;
 import com.manish.projectos.goal.domain.GoalEntity;
 import com.manish.projectos.goal.repository.GoalRepository;
 import com.manish.projectos.problem.domain.ProblemEntity;
@@ -25,6 +26,7 @@ public class WorkspaceService {
     private final ProblemRepository problemRepository;
     private final GoalRepository goalRepository;
     private final ResearchTopicRepository researchTopicRepository;
+    private final DecisionRepository decisionRepository;
 
     public WorkspaceResponse getWorkspace(UUID projectId) {
         ProjectEntity project = projectRepository
@@ -44,6 +46,9 @@ public class WorkspaceService {
         int researchTopicCount = researchTopicRepository
                         .findByProject_Id(projectId)
                         .size();
+        int decisionCount = decisionRepository
+                        .findByProject_Id(projectId)
+                        .size();
 
         return new WorkspaceResponse(
                 project.getId(),
@@ -53,7 +58,7 @@ public class WorkspaceService {
                 problemCount,
                 goalCount,
                 researchTopicCount,
-                0,
+                decisionCount,
                 0,
                 problems
         );

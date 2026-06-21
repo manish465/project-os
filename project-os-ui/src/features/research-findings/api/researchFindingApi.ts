@@ -35,3 +35,8 @@ export const createResearchFinding = async (
 
     return response.data.data;
 };
+
+export const getProjectFindings = async (projectId: string) => {
+    const response = await api.get(`/projects/${projectId}/findings`);
+    return response.data.data;
+};

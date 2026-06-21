@@ -5,6 +5,8 @@ import com.manish.projectos.project.dto.CreateProjectRequest;
 import com.manish.projectos.project.dto.ProjectResponse;
 import com.manish.projectos.project.dto.UpdateProjectRequest;
 import com.manish.projectos.project.service.ProjectService;
+import com.manish.projectos.researchfinding.dto.ResearchFindingResponse;
+import com.manish.projectos.researchfinding.service.ResearchFindingService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +19,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @CrossOrigin
 public class ProjectController {
-    private final ProjectService service;
+    private final ProjectService projectService;
+    private final ResearchFindingService researchFindingService;
 
     @PostMapping
     public ApiResponse<ProjectResponse> create(
@@ -28,7 +31,7 @@ public class ProjectController {
         return ApiResponse.<ProjectResponse>builder()
                 .success(true)
                 .message("Project created")
-                .data(service.create(request))
+                .data(projectService.create(request))
                 .build();
     }
 
@@ -36,7 +39,7 @@ public class ProjectController {
     public ApiResponse<List<ProjectResponse>> findAll() {
         return ApiResponse.<List<ProjectResponse>>builder()
                 .success(true)
-                .data(service.findAll())
+                .data(projectService.findAll())
                 .message("")
                 .build();
     }
@@ -45,7 +48,7 @@ public class ProjectController {
     public ApiResponse<ProjectResponse> findById(@PathVariable UUID projectId) {
         return ApiResponse.<ProjectResponse>builder()
                 .success(true)
-                .data(service.findById(projectId))
+                .data(projectService.findById(projectId))
                 .build();
     }
 
@@ -59,7 +62,7 @@ public class ProjectController {
         return ApiResponse.<ProjectResponse>builder()
                 .success(true)
                 .message("Project updated")
-                .data(service.update(projectId, request))
+                .data(projectService.update(projectId, request))
                 .build();
     }
 
@@ -69,11 +72,21 @@ public class ProjectController {
             @PathVariable UUID projectId
     ) {
 
-        service.archive(projectId);
+        projectService.archive(projectId);
 
         return ApiResponse.<Void>builder()
                 .success(true)
                 .message("Project archived")
+                .build();
+    }
+
+    @GetMapping("/{projectId}/findings")
+    public ApiResponse<List<ResearchFindingResponse>> findByProject(
+            @PathVariable UUID projectId
+    ) {
+        return ApiResponse.<List<ResearchFindingResponse>>builder()
+                .success(true)
+                .data(researchFindingService.findByProject(projectId))
                 .build();
     }
 }

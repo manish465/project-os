@@ -6,6 +6,7 @@ import ResearchTab from "./ResearchTab";
 import NotesTab from "./NotesTab";
 
 import type { Workspace } from "../types/workspace";
+import DecisionsTab from "./DecisionsTab";
 
 interface Props {
     projectId: string;
@@ -22,6 +23,7 @@ export default function WorkspaceTabs({ projectId, workspace }: Props) {
                 <Tab label="Problems" />
                 <Tab label="Research" />
                 <Tab label="Notes" />
+                <Tab label="Decisions" />
             </Tabs>
 
             <Box sx={{ mt: 3 }}>
@@ -30,8 +32,8 @@ export default function WorkspaceTabs({ projectId, workspace }: Props) {
                     <ProblemsTab projectId={projectId} workspace={workspace} />
                 )}
                 {tab === 2 && <ResearchTab projectId={projectId} />}
-
                 {tab === 3 && <NotesTab />}
+                {tab === 4 && <DecisionsTab projectId={projectId} />}
             </Box>
         </>
     );

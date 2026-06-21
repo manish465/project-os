@@ -8,4 +8,5 @@ import java.util.UUID;
 
 public interface ResearchFindingRepository extends JpaRepository<ResearchFindingEntity, UUID> {
     List<ResearchFindingEntity> findByResearchTopic_Id(UUID researchTopicId);
+    List<ResearchFindingEntity> findByResearchTopic_Project_Id(UUID projectId);
 }

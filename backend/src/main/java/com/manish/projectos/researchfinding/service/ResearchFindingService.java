@@ -48,4 +48,12 @@ public class ResearchFindingService {
                 .map(ResearchFindingMapper::toResponse)
                 .toList();
     }
+
+    @Transactional(readOnly = true)
+    public List<ResearchFindingResponse> findByProject(UUID projectId) {
+        return repository.findByResearchTopic_Project_Id(projectId)
+                .stream()
+                .map(ResearchFindingMapper::toResponse)
+                .toList();
+    }
 }
