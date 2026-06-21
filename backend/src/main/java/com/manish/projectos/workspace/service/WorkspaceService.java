@@ -10,7 +10,7 @@ import com.manish.projectos.research.repository.ResearchTopicRepository;
 import com.manish.projectos.workspace.dto.GoalWorkspaceResponse;
 import com.manish.projectos.workspace.dto.ProblemWorkspaceResponse;
 import com.manish.projectos.workspace.dto.WorkspaceResponse;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

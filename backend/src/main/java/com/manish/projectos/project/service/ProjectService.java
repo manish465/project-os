@@ -8,7 +8,7 @@ import com.manish.projectos.project.dto.ProjectResponse;
 import com.manish.projectos.project.dto.UpdateProjectRequest;
 import com.manish.projectos.project.mapper.ProjectMapper;
 import com.manish.projectos.project.repository.ProjectRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -45,7 +45,7 @@ public class ProjectService {
                 .toList();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public ProjectResponse findById(UUID projectId) {
         ProjectEntity project =
                 repository.findById(projectId)

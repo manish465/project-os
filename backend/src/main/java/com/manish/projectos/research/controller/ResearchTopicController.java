@@ -57,4 +57,12 @@ public class ResearchTopicController {
                 .data(service.update(researchId, request))
                 .build();
     }
+
+    @GetMapping("/{researchId}")
+    public ApiResponse<ResearchTopicResponse> findById(@PathVariable UUID researchId) {
+        return ApiResponse.<ResearchTopicResponse>builder()
+                .success(true)
+                .data(service.findById(researchId))
+                .build();
+    }
 }

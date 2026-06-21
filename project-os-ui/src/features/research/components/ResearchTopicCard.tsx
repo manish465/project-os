@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import type { ResearchTopic } from "../types/researchTopic";
 import { useUpdateResearchTopic } from "../hooks/useUpdateResearchTopic";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     projectId: string;
@@ -15,6 +16,7 @@ interface Props {
 }
 
 export default function ResearchTopicCard({ projectId, topic }: Props) {
+    const navigate = useNavigate();
     const updateTopic = useUpdateResearchTopic(projectId);
 
     const startResearch = () => {
@@ -46,6 +48,17 @@ export default function ResearchTopicCard({ projectId, topic }: Props) {
                     </Typography>
 
                     <Chip label={topic.status} />
+                    <Button
+                        size="small"
+                        variant="outlined"
+                        onClick={() =>
+                            navigate(
+                                `/projects/${projectId}/research/${topic.id}`,
+                            )
+                        }
+                    >
+                        Open
+                    </Button>
 
                     <Stack direction="row" spacing={1}>
                         {topic.status === "NOT_STARTED" && (

@@ -4,6 +4,7 @@ import ProjectListPage from "../features/projects/pages/ProjectListPage";
 import CreateProjectPage from "../features/projects/pages/CreateProjectPage";
 import MainLayout from "../shared/layouts/MainLayout";
 import ProjectDetailsPage from "../features/projects/pages/ProjectDetailsPage";
+import ResearchTopicDetailsPage from "../features/research/pages/ResearchTopicDetailsPage";
 
 export default function AppRoutes() {
     return (
@@ -19,6 +20,10 @@ export default function AppRoutes() {
                     <Route
                         path="/projects/:projectId"
                         element={<ProjectDetailsPage />}
+                    />
+                    <Route
+                        path="/projects/:projectId/research/:researchId"
+                        element={<ResearchTopicDetailsPage />}
                     />
                 </Route>
             </Routes>

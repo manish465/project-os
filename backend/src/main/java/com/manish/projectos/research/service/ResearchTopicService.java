@@ -1,5 +1,6 @@
 package com.manish.projectos.research.service;
 
+import com.manish.projectos.common.exception.ResourceNotFoundException;
 import com.manish.projectos.project.domain.ProjectEntity;
 import com.manish.projectos.project.repository.ProjectRepository;
 import com.manish.projectos.research.domain.ResearchTopicEntity;
@@ -9,7 +10,7 @@ import com.manish.projectos.research.dto.ResearchTopicResponse;
 import com.manish.projectos.research.dto.UpdateResearchTopicRequest;
 import com.manish.projectos.research.mapper.ResearchTopicMapper;
 import com.manish.projectos.research.repository.ResearchTopicRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -72,5 +73,16 @@ public class ResearchTopicService {
         }
 
         return ResearchTopicMapper.toResponse(repository.save(entity));
+    }
+
+    @Transactional(readOnly = true)
+    public ResearchTopicResponse findById(
+            UUID researchId
+    ) {
+
+        ResearchTopicEntity entity = repository.findById(researchId)
+                        .orElseThrow(() -> new ResourceNotFoundException("Research topic not found"));
+
+        return ResearchTopicMapper.toResponse(entity);
     }
 }

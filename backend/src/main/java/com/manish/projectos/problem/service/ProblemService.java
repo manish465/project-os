@@ -7,7 +7,7 @@ import com.manish.projectos.problem.mapper.ProblemMapper;
 import com.manish.projectos.problem.repository.ProblemRepository;
 import com.manish.projectos.project.domain.ProjectEntity;
 import com.manish.projectos.project.repository.ProjectRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +37,7 @@ public class ProblemService {
         return ProblemMapper.toResponse(problemRepository.save(problem));
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ProblemResponse> findByProject(UUID projectId) {
         return problemRepository
                 .findByProject_Id(projectId)

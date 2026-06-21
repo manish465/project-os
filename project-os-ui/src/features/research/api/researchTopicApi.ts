@@ -41,3 +41,14 @@ export const updateResearchTopic = async (
 
     return response.data.data;
 };
+
+export const getResearchTopic = async (
+    projectId: string,
+    researchId: string,
+) => {
+    const response = await api.get(
+        `/projects/${projectId}/research-topics/${researchId}`,
+    );
+
+    return response.data.data;
+};

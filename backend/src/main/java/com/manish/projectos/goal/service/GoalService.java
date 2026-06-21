@@ -7,7 +7,7 @@ import com.manish.projectos.goal.mapper.GoalMapper;
 import com.manish.projectos.goal.repository.GoalRepository;
 import com.manish.projectos.problem.domain.ProblemEntity;
 import com.manish.projectos.problem.repository.ProblemRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +38,7 @@ public class GoalService {
         return GoalMapper.toResponse(goalRepository.save(goal));
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<GoalResponse> findByProblem(UUID problemId) {
         return goalRepository
                 .findByProblem_Id(problemId)
