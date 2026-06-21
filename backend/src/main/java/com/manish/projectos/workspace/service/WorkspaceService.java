@@ -35,10 +35,21 @@ public class WorkspaceService {
                         .map(this::mapProblem)
                         .toList();
 
+        int problemCount = problems.size();
+        int goalCount = problems.stream()
+                        .mapToInt(p -> p.goals().size())
+                        .sum();
+
         return new WorkspaceResponse(
                 project.getId(),
                 project.getName(),
                 project.getDescription(),
+                project.getStatus().name(),
+                problemCount,
+                goalCount,
+                0,
+                0,
+                0,
                 problems
         );
     }
