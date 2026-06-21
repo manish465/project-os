@@ -40,7 +40,12 @@ export default function CreateDecisionDialog({
     return (
         <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
             <DialogTitle>Create Decision</DialogTitle>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form
+                onSubmit={handleSubmit((data) => {
+                    onSubmit(data);
+                    reset();
+                })}
+            >
                 <DialogContent>
                     <Stack spacing={2}>
                         <Controller
