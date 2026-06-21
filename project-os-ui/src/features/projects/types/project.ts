@@ -2,5 +2,5 @@ export interface Project {
     id: string;
     name: string;
     description: string;
-    status: string;
+    status: "ACTIVE" | "ON_HOLD" | "COMPLETED" | "ARCHIVED";
 }

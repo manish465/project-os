@@ -13,7 +13,6 @@ export default function ProblemList({ problems }: Props) {
                 <Card key={problem.id}>
                     <CardContent>
                         <Typography variant="h6">{problem.title}</Typography>
-
                         <Typography color="text.secondary">
                             {problem.description}
                         </Typography>
