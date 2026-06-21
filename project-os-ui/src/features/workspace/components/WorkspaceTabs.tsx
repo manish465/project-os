@@ -26,12 +26,10 @@ export default function WorkspaceTabs({ projectId, workspace }: Props) {
 
             <Box sx={{ mt: 3 }}>
                 {tab === 0 && <OverviewTab workspace={workspace} />}
-
                 {tab === 1 && (
                     <ProblemsTab projectId={projectId} workspace={workspace} />
                 )}
-
-                {tab === 2 && <ResearchTab />}
+                {tab === 2 && <ResearchTab projectId={projectId} />}
 
                 {tab === 3 && <NotesTab />}
             </Box>

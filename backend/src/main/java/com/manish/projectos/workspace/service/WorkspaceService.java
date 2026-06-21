@@ -6,6 +6,7 @@ import com.manish.projectos.problem.domain.ProblemEntity;
 import com.manish.projectos.problem.repository.ProblemRepository;
 import com.manish.projectos.project.domain.ProjectEntity;
 import com.manish.projectos.project.repository.ProjectRepository;
+import com.manish.projectos.research.repository.ResearchTopicRepository;
 import com.manish.projectos.workspace.dto.GoalWorkspaceResponse;
 import com.manish.projectos.workspace.dto.ProblemWorkspaceResponse;
 import com.manish.projectos.workspace.dto.WorkspaceResponse;
@@ -23,6 +24,7 @@ public class WorkspaceService {
     private final ProjectRepository projectRepository;
     private final ProblemRepository problemRepository;
     private final GoalRepository goalRepository;
+    private final ResearchTopicRepository researchTopicRepository;
 
     public WorkspaceResponse getWorkspace(UUID projectId) {
         ProjectEntity project = projectRepository
@@ -39,6 +41,9 @@ public class WorkspaceService {
         int goalCount = problems.stream()
                         .mapToInt(p -> p.goals().size())
                         .sum();
+        int researchTopicCount = researchTopicRepository
+                        .findByProject_Id(projectId)
+                        .size();
 
         return new WorkspaceResponse(
                 project.getId(),
@@ -47,7 +52,7 @@ public class WorkspaceService {
                 project.getStatus().name(),
                 problemCount,
                 goalCount,
-                0,
+                researchTopicCount,
                 0,
                 0,
                 problems
