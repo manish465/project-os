@@ -1,5 +1,6 @@
 import {
     Alert,
+    Button,
     Chip,
     CircularProgress,
     Paper,
@@ -8,10 +9,17 @@ import {
 } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useResearchTopic } from "../hooks/useResearchTopic";
+import { useState } from "react";
+import { useResearchFindings } from "../../research-findings/hooks/useResearchFindings";
+import { useCreateResearchFinding } from "../../research-findings/hooks/useCreateResearchFinding";
+import ResearchFindingList from "../../research-findings/components/ResearchFindingList";
+import CreateResearchFindingDialog from "../../research-findings/components/CreateResearchFindingDialog";
 
 export default function ResearchTopicDetailsPage() {
     const { projectId, researchId } = useParams();
-
+    const [open, setOpen] = useState(false);
+    const findingsQuery = useResearchFindings(researchId!);
+    const createFinding = useCreateResearchFinding(researchId!);
     const query = useResearchTopic(projectId!, researchId!);
 
     if (query.isLoading) {
@@ -33,10 +41,21 @@ export default function ResearchTopicDetailsPage() {
                     <Chip label={topic.status} />
                 </Stack>
             </Paper>
-            <Paper sx={{ p: 3 }}>
-                <Typography variant="h5">Findings</Typography>
-                <Typography color="text.secondary">No findings yet.</Typography>
-            </Paper>
+            <Stack spacing={3}>
+                <Button variant="contained" onClick={() => setOpen(true)}>
+                    Add Finding
+                </Button>
+                <ResearchFindingList findings={findingsQuery.data ?? []} />
+            </Stack>
+            <CreateResearchFindingDialog
+                open={open}
+                onClose={() => setOpen(false)}
+                onSubmit={(data) => {
+                    createFinding.mutate(data, {
+                        onSuccess: () => setOpen(false),
+                    });
+                }}
+            />
         </Stack>
     );
 }
